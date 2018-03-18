@@ -1,0 +1,12 @@
+{% extends 'energy/base.html' %}
+
+
+<div class="container">
+    <div>
+    <form class="form-group" method="post">
+        {% csrf_token %}
+        {% include 'energy/form_template.html' %}
+        <button type="submit" class="btn-success">submit</button>
+        </form>
+    </div>
+</div>
