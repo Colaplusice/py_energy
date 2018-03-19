@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 class MessageForm(forms.ModelForm):
         class Meta:
             model=Message
-            fields=['title','content','img']
-
+            fields=['title','content','img','type']
 
 class UserForm(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput())

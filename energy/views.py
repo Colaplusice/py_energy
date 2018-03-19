@@ -4,6 +4,7 @@ from .forms import MessageForm,UserForm
 from .models import Message
 from django.contrib.auth import authenticate,logout,login
 from django.shortcuts import render
+import datetime
 # Create your views here.
 def index(request):
     all_messages=Message.objects.all()
@@ -14,8 +15,6 @@ def index(request):
 def submit_msg(request):
     if request.user.is_authenticated():
         if request.POST:
-            print(request.POST)
-            print(request.POST['content'])
             print(type(request.FILES))
             message_form=MessageForm(request.POST or None ,request.FILES or None)
             # print(message_form)
@@ -42,6 +41,7 @@ def submit_msg(request):
 
     else: return render(request,'energy/Login.html')
     return render(request,'energy/submit_message.html',{"form":form})
+
 
 
 def Login(request):
