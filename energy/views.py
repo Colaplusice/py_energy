@@ -12,8 +12,13 @@ def index(request):
     return render(request,'energy/index.html',{"all_messages":all_messages})
 
 
-def detail(request):
-    return  render(request,'energy/detail.html')
+def detail(request,Message_id):
+    message=Message.objects.filter()
+    print(type(message))
+    print(message.)
+    context_dict={}
+    context_dict['message']=message
+    return  render(request,'energy/detail.html',context_dict)
 
 def submit_msg(request):
    if  not request.user.is_authenticated():

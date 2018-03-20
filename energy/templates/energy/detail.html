@@ -1,101 +1,159 @@
 {% extends 'energy/base.html' %}
 
 {% block body_block %}
+
+
 <div class="aw-container-wrap">
-<div class="container">
-    <div class="row">
-        <div class="aw-content-wrap clearfix">
-            <div class="col-sm-12 col-md-9 aw-main-content">
-					<!-- 话题推荐bar -->
-                <div class="aw-mod aw-topic-bar">
-                    <div class="tag-bar clearfix">
-                        <span class="topic-tag">
+	<div class="container">
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<div class="col-sm-12 col-md-9 aw-main-content aw-article-content">
+					<div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="article" data-id="346">
+						<div class="tag-bar clearfix">
+																					<span class="topic-tag">
+								<a class="text" href="http://wenda.golaravel.com/topic/laravel" data-id="57">laravel</a>
+							</span>
 
-                            <a href="">fanjia;</a>
+													</div>
+					</div>
+					<div class="aw-mod aw-question-detail">
+						<div class="mod-head">
+							<h1>
+								{{ message.title}}					</h1>
 
-                        </span>
-                    </div>
-                					<!-- end 话题bar -->
+													</div>
+						<div class="mod-body">
+							<div class="content markitup-box">
+								用laravel5.4写了个博客。欢迎大家来访与测试<br />
+<a href="http://www.ice-breaker.cn" rel="nofollow" target="_blank">www.ice-breaker.cn</a>
 
-                    <!--  内容 -->
-                    <div class="aw-mod aw-question-detail aw-item">
-    <div class="mod-head">
-            <h1>title </h1>
-    </div>
+															</div>
+							<div class="meta clearfix">
+								<div class="aw-article-vote pull-left disabled">
+									<a href="javascript:;" class="agree" onclick="AWS.User.article_vote($(this), 346, 1);"><i class="icon icon-agree"></i> <b>0</b></a>
+																	</div>
 
-    <div class="mod-body">
-        <div class="content markitup-box">
-            content
-        </div>
-    </div>
-
-    <div class="mod-footer">
-        foot
-        <div class="meta">
-
-            <span class="text-color-999">
-                time
-            </span>
-            <a> 添加评论</a>
-{#            <div class="pull-right more-operate" >#}
-{##}
-{#                <a class="icon icon-share">分享</a>#}
-{#                <div aria-labelledby="dropdownmenu" class="aw-dropdown shareout pull-right">#}
-{#                    <ul class="aw-dropdown-list">#}
-{#                        <li><a onclick=""> 新浪微博</a></li>#}
-{##}
-{#                    </ul>#}
-{##}
-{##}
-{#                </div>#}
-{##}
-{#            </div>#}
-        </div>
-
-    </div>
+								<span class="pull-right  more-operate">
 
 
+									<a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
+										<i class="icon icon-share"></i> 分享									</a>
+									<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
+										<ul class="aw-dropdown-list">
+											<li><a onclick="AWS.User.share_out('tsina');"><i class="icon icon-weibo"></i> 新浪微博</a></li>
+											<li><a onclick="AWS.User.share_out('qzone');"><i class="icon icon-qzone"></i> QZONE</a></li>
+											<li><a onclick="AWS.User.share_out('weixin');"><i class="icon icon-wechat"></i> 微信</a></li>
+										</ul>
+									</div>
+
+									<em class="text-color-999">2017-05-28</em>
+								</span>
+
+
+
+							</div>
+						</div>
+						<div class="mod-footer">
+													</div>
+					</div>
+
+					<!-- 文章评论 -->
+					<div class="aw-mod">
+						<div class="mod-head common-head">
+							<h2>0 个评论</h2>
+						</div>
+
+
+
+											</div>
+					<!-- end 文章评论 -->
+
+					<!-- 回复编辑器 -->
+					<div class="aw-mod aw-article-replay-box">
+						<a name="answer_form"></a>
+												<p align="center">要回复文章请先<a href="http://wenda.golaravel.com/login/">登录</a>或<a href="http://wenda.golaravel.com/account/register/">注册</a></p>
+											</div>
+					<!-- end 回复编辑器 -->
+				</div>
+				<!-- 侧边栏 -->
+				<div class="col-sm-12 col-md-3 aw-side-bar hidden-sm hidden-xs">
+					<!-- 发起人 -->
+										<div class="aw-mod user-detail">
+						<div class="mod-head">
+							<h3>发起人</h3>
+						</div>
+						<div class="mod-body">
+							<dl>
+								<dt class="pull-left aw-border-radius-5">
+									<a href="http://wenda.golaravel.com/people/joychi"><img alt="joychi" src="http://wenda.golaravel.com/static/common/avatar-mid-img.png" /></a>
+								</dt>
+								<dd class="pull-left">
+									<a class="aw-user-name" href="http://wenda.golaravel.com/people/joychi" data-id="5192">joychi</a>																		<p></p>
+								</dd>
+							</dl>
+						</div>
+						<div class="mod-footer clearfix">
+													</div>
+					</div>
+										<!-- end 发起人 -->
+
+										<!-- 推荐内容 -->
+					<div class="aw-mod">
+						<div class="mod-head">
+							<h3>推荐内容</h3>
+						</div>
+						<div class="mod-body">
+							<ul>
+																<li>
+																		<a href="http://wenda.golaravel.com/article/240">laravel 5.0 artisan 命令列表（中文简体）</a>
+																	</li>
+																<li>
+																		<a href="http://wenda.golaravel.com/question/286">求救 Laravel 请求莫名超时</a>
+																	</li>
+																<li>
+																		<a href="http://wenda.golaravel.com/article/24">分享一个小窍门吧，让你们clone laravel更快</a>
+																	</li>
+															</ul>
+						</div>
+					</div>
+					<!-- end 推荐内容 -->
+
+										<!-- 相关问题 -->
+					<div class="aw-mod aw-text-align-justify question-related-list">
+						<div class="mod-head">
+							<h3>相关问题</h3>
+						</div>
+						<div class="mod-body">
+							<ul>
+																<li><a href="http://wenda.golaravel.com/question/18">大家试试 Composer 全量国内镜像吧</a></li>
+																<li><a href="http://wenda.golaravel.com/question/724">关于laravel5文件上传的问题</a></li>
+																<li><a href="http://wenda.golaravel.com/question/145">Laravel5.0 是还没有定案么，还是说现在就已经这样了，感觉文件复杂了，写起来也变得麻烦了……</a></li>
+																<li><a href="http://wenda.golaravel.com/question/24">希望出一个cms供大家学习</a></li>
+																<li><a href="http://wenda.golaravel.com/question/237">求解贴，大家看过来，表单里多行数组形式的数据，后台该如何获取</a></li>
+																<li><a href="http://wenda.golaravel.com/question/1436">谁有laravel5的视频教程？</a></li>
+																<li><a href="http://wenda.golaravel.com/question/782">急死了，求帮忙！新人laravel5配置问题</a></li>
+																<li><a href="http://wenda.golaravel.com/question/1530">请问laravel5.0自带分页伪静态如实现？</a></li>
+																<li><a href="http://wenda.golaravel.com/question/1499"> laravel5.1  如何返回上一步insert 操作产生的ID</a></li>
+																<li><a href="http://wenda.golaravel.com/question/285">本地测试正常 怎么上传服务器 打开就白屏了呢</a></li>
+																<li><a href="http://wenda.golaravel.com/question/690">请问laravel5的验证码怎么弄？</a></li>
+															</ul>
+						</div>
+					</div>
+					<!-- end 相关问题 -->
+									</div>
+				<!-- end 侧边栏 -->
+			</div>
+		</div>
+	</div>
 </div>
-<!--  内容结束 -->
-<!--  comment -->
-<div class="aw-mod aw-question-comment">
-    <div class="mod-head">
-        <ul class="nav nav-tabs aw-nav-tabs active">
 
-            <h2 class="hidden-xs"> 回复个数</h2>
-        </ul>
-    </div>
-<div class="mod-body aw-feed-list">
-    <div class="aw-item">
-        <!--  用户头像 -->
-        <div class="mod-head">
-            <a class="anchor" name="answer_2910"><img src="http://wenda.golaravel.com/static/common/avatar-mid-img.png"> </a>
-        </div>
-    </div>
-</div>
+<div class="aw-footer-wrap">
+	<div class="aw-footer">
+		Copyright © 2018, All Rights Reserved</span>
 
-</div>
+		<span class="hidden-xs">Powered By <a href="http://www.wecenter.com/?copyright" target="blank">WeCenter 3.0 Beta 2</a></span>
 
-
-                </div>
-
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-
-</div>
-
-
-
+			</div>
 </div>
 
 

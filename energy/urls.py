@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^Logout',views.Logout,name='Logout'),
     url(r'^Forum',views.Forum,name='forum'),
     url(r'^Register',views.Register,name='register'),
-    url(r'^detail',views.detail,name='detail'),
+    url(r'^detail/(?P<Message_id>[0-9])/$',views.detail,name='detail'),
 ]
