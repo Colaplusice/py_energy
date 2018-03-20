@@ -16,12 +16,16 @@ class Type(models.Model):
 class Message(models.Model):
     user=models.ForeignKey(User,default=1)
     pub_date=models.DateTimeField(default=timezone.now)
-    type=models.ForeignKey(Type, to_field=Type.name)
+    type=models.ForeignKey('Type', db_column='name')
     content=models.TextField()
     title=models.CharField(max_length=128)
     img=models.FileField(default='')
+
+
+
+
     def __str__(self):
-        return self.type+'--'+self.title
+        return self.title +"---- " +self.type.name
 
 
 

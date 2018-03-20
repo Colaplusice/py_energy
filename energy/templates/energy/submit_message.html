@@ -4,16 +4,19 @@
 <div class="row">
 
     {% if error %}
-    <h1> {{ error }}</h1>
+    <h1 align="center"> {{ error }}</h1>
     {% endif %}
     <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="{% url 'energy:submit_msg' %}">
            {% csrf_token %}
-        {%include 'energy/form_template.html'  %}
+        {%include 'energy/form_template_2.html'  %}
+          <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success">
+                    submit
+                    </button>
+                    </div>
+                </div>
     </form>
-
 </div>
-
 </div>
-
-
 {% endblock %}

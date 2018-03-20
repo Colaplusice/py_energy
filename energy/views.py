@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from .forms import MessageForm,UserForm
-from .models import Message
+from .models import Message,Type
 from django.contrib.auth import authenticate,logout,login
 from django.shortcuts import render
 import datetime
@@ -12,36 +12,61 @@ def index(request):
     return render(request,'energy/index.html',{"all_messages":all_messages})
 
 
+def detail(request):
+    return  render(request,'energy/detail.html')
+
 def submit_msg(request):
-    if request.user.is_authenticated():
-        if request.POST:
-            print(type(request.FILES))
-            message_form=MessageForm(request.POST or None ,request.FILES or None)
-            # print(message_form)
-            # print(message_form.cleaned_data['title'])
-            # print(message_form.cleaned_data['content'])
-            # print(request.FILES['img'])
-            if message_form.is_valid():
-                message=message_form.save(commit=False)
-                message.img=request.FILES['img']
-                message.title=message_form.cleaned_data['title']
-                message.content=message_form.cleaned_data['content']
-                print('yes')
-                message.save()
-                all_messages=Message.objects.filter(user=request.user)
-
-                return render(request,'energy/index.html',{"all_messages":all_messages})
-            else:
-                print(message_form)
-
-                return render(request, 'energy/submit_message.html',{"error":"the form is not vaild"})
-
+   if  not request.user.is_authenticated():
+        return render(request,'energy/Login.html')
+   else:
+    if request.POST:
+        message_form=MessageForm(request.POST or None,request.FILES or None)
+        if message_form.is_valid():
+            print("form is valid ")
+            # message=Message(user=request.d)
+            message=message_form.save(commit=False)
+            message.img=request.FILES['img']
+            message.title=message_form.cleaned_data['title']
+            message.content=message_form.cleaned_data['content']
+            message.type.name=message_form.cleaned_data['type']
+            message.save()
+            all_messages=Message.objects.filter(user=request.user)
+            context_dict={}
+            context_dict['errors']='添加成功'
+            context_dict['all_messages']=all_messages
+            return render(request,'energy/index.html',context_dict)
+            # else:
+            #     print(message_form)
+            #     context_dict = {}
+            #     all_types = Type.objects.all()
+            #     form = MessageForm(request.POST or None, request.FILES or None)
+            #     context_dict['all_types'] = all_types
+            #     context_dict['error']="the form is not valid"
+            #     return render(request, 'energy/submit_message.html',context_dict)
         else:
-            form=MessageForm(request.POST or None,request.FILES or None)
+            print('表格错误')
+            print(request.POST)
+            # print(MessageForm.cleaned_data['title'])
+            print(MessageForm.cleaned_data)
+            # print(MessageForm.cleaned_data['type'])
+            # print(request.FILES)
+            error='the form is not valid'
+            context_dict = {}
+            all_types = Type.objects.all()
+            form = MessageForm(request.POST or None, request.FILES or None)
+            context_dict['form'] = form
+            context_dict['all_types'] = all_types
+            context_dict['error'] = error
+            return render(request, 'energy/submit_message.html',context_dict)
 
-    else: return render(request,'energy/Login.html')
-    return render(request,'energy/submit_message.html',{"form":form})
 
+    else:
+        context_dict={}
+        all_types = Type.objects.all()
+        form=MessageForm(request.POST or None,request.FILES or None)
+        context_dict['form']=form
+        context_dict['all_types']=all_types
+        return render(request, 'energy/submit_message.html',context_dict)
 
 
 def Login(request):
@@ -85,4 +110,6 @@ def Register(request):
     return render(request,'energy/Register.html')
 
 def Forum(request):
-    return render(request,'energy/forum.html')
+    context_dict={}
+    messages=Message.objects.all()
+    return render(request,'energy/forum.html',{'messages':messages})
