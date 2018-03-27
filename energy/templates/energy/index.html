@@ -1,77 +1,70 @@
 {% extends 'energy/base.html' %}
 
-{% load staticfiles %}
 {% block body_block %}
 
- <div class="container">
+ <div class="container container-fluid">
       <div class="row">
         <div class="col-md-3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+          <div class="well sidebar-nav col-md5">
+            <ul class="nav nav-list ">
+              <li class="nav-header">分类</li>
+                {% for type in all_types %}
+              <li><a href="#">{{ type.name }}</a></li>
+                {% endfor %}
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="col-md-9">
           <div class="jumbotron">
-            <h1>环保留言板</h1>
+            <h1>问题留言板</h1>
             <p>节能校园，从我做起</p>
-            <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-          </div>
-          <div class="row">
+            <p><a href="#" class="btn btn-primary btn-large">了解更多 &raquo;</a></p>
+              <div class="row">
               {% for messge in all_messages %}
-               <div class="col-md-4">
-              <h2>{{ messge.title }}</h2>
-              <p>{{messge.content }} </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
+               <div class="col-md-6">
+              <h2 class="h2">{{ messge.title }}
+                  {% if messge.is_deal %}
+                      <label class="label">(已解决)</label>
+                  <span class="glyphicon glyphicon-ok" style="color: #38b836"></span>
+                  {% else %}
+                  <span class="glyphicon glyphicon-remove btn-sm" style="color: #c9302c"></span>
+                                      <label class="label btn-sm"style="color: #000000">(未解决)</label>
 
+                  {% endif %}
+              </h2>
+              <p class="h3"> {{messge.content }} </p>
+              <p><a class="btn" href="{% url 'energy:detail' messge.id %}">更多 &raquo;</a></p>
+            </div><!--/span-->
               {% endfor %}
-{#            <div class="col-md-4">#}
+{#   <div class="col-md-12">#}
+{#              <h2>Heading &nbsp; &nbsp;&nbsp;<span class="glyphicon glyphicon-ok" style="color: #38b836"></span>#}
+{#</h2>#}
+{#              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>#}
+{#              <p><a class="btn" href="#">View details &raquo;</a></p>#}
+{#            </div><!--/span-->#}
+{#            <div class="col-md-12">#}
+{#              <h2>Heading</h2>#}
+{#              <p class="h3">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>#}
+{#              <p><a class="btn" href="#">View details &raquo;</a></p>#}
+{#            </div><!--/span-->#}
+{#            <div class="col-md-12">#}
 {#              <h2>Heading</h2>#}
 {#              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>#}
 {#              <p><a class="btn" href="#">View details &raquo;</a></p>#}
 {#            </div><!--/span-->#}
-{#            <div class="col-md-4">#}
-{#              <h2>Heading</h2>#}
-{#              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>#}
-{#              <p><a class="btn" href="#">View details &raquo;</a></p>#}
-{#            </div><!--/span-->#}
-   <div class="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
           </div><!--/row-->
-          <div class="row-fluid">
+          </div>
 
-          </div><!--/row-->
+{#          <div class="row-fluid">#}
+{##}
+{#          </div><!--/row-->#}
         </div><!--/span-->
       </div><!--/row-->
 
       <hr>
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>&copy;  2018</p>
       </footer>
 
     </div><!--/.fluid-container-->

@@ -16,20 +16,40 @@ class Type(models.Model):
 class Message(models.Model):
     user=models.ForeignKey(User,default=1)
     pub_date=models.DateTimeField(default=timezone.now)
-    type=models.ForeignKey('Type', db_column='name')
+    type=models.ForeignKey(Type)
     content=models.TextField()
     title=models.CharField(max_length=128)
-    img=models.FileField(default='')
-
-
-
+    views=models.IntegerField(default=0)
+    img=models.FileField(null=True,blank=True)
+    is_deal=models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title +"---- " +self.type.name
+        return  self.title
+
+class Commit(models.Model):
+    user = models.ForeignKey(User, default=1)
+    pub_date = models.DateTimeField(default=timezone.now)
+    content = models.TextField()
+    message = models.ForeignKey(Message)
+
+    def __str__(self):
+        return  self.content
 
 
+class Article(models.Model):
+    user=models.ForeignKey(User,default=1)
+    content=models.TextField()
+    pub_date=models.DateTimeField(default=timezone.now)
+    title=models.CharField(max_length=128)
+    views=models.IntegerField(default=0)
+    type=models.ForeignKey(Type)
+    def __str__(self):
+        return  self.title+"----"+self.content
 
 
-
+#文章类的子表 文章的图片
+class ArticleImg(models.Model):
+        article=models.ForeignKey(Article)
+        img=models.FileField()
 
 

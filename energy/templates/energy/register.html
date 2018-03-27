@@ -1,12 +1,30 @@
 {% extends 'energy/base.html' %}
 
 
-<div class="container">
-    <div>
-    <form class="form-group" method="post">
-        {% csrf_token %}
-        {% include 'energy/form_template.html' %}
-        <button type="submit" class="btn-success">submit</button>
-        </form>
+{% block body_block %}
+<div class="container-fluid">
+<div class="panel">
+ <form class="form-horizontal"  method="post" action=" {% url 'energy:register' %} ">
+     {% if error %}
+     <h1> {{ error }}</h1>
+     {% endif %}
+    {% csrf_token %}
+    {% include 'energy/form_template_2.html' %}
+
+<div class="form-group">
+    <div class="col-sm-offset-2">
+
+            <button type="submit" class="btn-success">提交</button>
+
     </div>
 </div>
+</form>
+
+
+
+</div>
+
+
+</div>
+
+{% endblock %}
