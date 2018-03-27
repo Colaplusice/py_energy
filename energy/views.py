@@ -10,6 +10,8 @@ from django.contrib.auth import authenticate,logout,login
 from django.shortcuts import render,HttpResponse
 from django.core.mail import send_mail
 from utils.email_send import Token
+from django.core.cache import cache
+
 import datetime
 # Create your views here.
 def index(request):
@@ -79,6 +81,7 @@ def submit_msg(request):
             return render(request, 'energy/submit_message.html',context_dict)
 
 
+
     else:
         context_dict={}
         all_types = Type.objects.all()
@@ -137,31 +140,40 @@ def Blog(request,blog_id):
         return render(request, 'energy/article_detail.html', {'article':contents})
 
 def Login(request):
+    # ver_code
+    ver_code_path = settings.VERIFICATION_CODE_DIR
+    today_str = datetime.date.today().strftime("%Y%m%d")
+    ver_code_img_path = "%s%s" % (ver_code_path, today_str)
+    random_filename = "".join(random.sample(string.ascii_lowercase, 4))
+    random_code = Random_image.verify_code.gene_code(ver_code_img_path, random_filename)
+    cache.set(random_filename, random_code, 30)
+    contenxt_dict={}
+    contenxt_dict['today_str']=today_str
     if request.method=='POST':
         username=request.POST['username']
         password=request.POST['password']
-        user=authenticate(username=username,password=password)
-        if user is not None:
-            login(request,user)
-            messages=Message.objects.all()
-            all_types=Type.objects.all()
-            contenxt_dict={}
-            contenxt_dict['all_messages']=messages
-            contenxt_dict['all_types']=all_types
-            return render(request,'energy/index.html',contenxt_dict)
-        else:
-            return  render(request,'energy/Login.html',{'error':'an error happened'})
-    else:
-        #ver_code
-        ver_code_path=settings.VERIFICATION_CODE_DIR
-        today_str = datetime.date.today().strftime("%Y%m%d")
-        ver_code_img_path="%s%s"%(ver_code_path,today_str)
-        random_filename = "".join(random.sample(string.ascii_lowercase, 4))
-        random_code = Random_image.verify_code.gene_code(ver_code_img_path, random_filename)
-        # cache.set(random_filename, random_code, 30)
-        user_form=UserForm(request.POST or None)
+        ver_code=request.POST['verify_code']
+        ver_code_key=request.POST['verify_code_key']
+        if cache.get(ver_code_key)==ver_code:
+            print('pass')
 
-        return render(request,'energy/Login.html',{'form':user_form})
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages = Message.objects.all()
+                all_types = Type.objects.all()
+                contenxt_dict['all_messages'] = messages
+                contenxt_dict['all_types'] = all_types
+                return render(request, 'energy/index.html', contenxt_dict)
+            else:
+                return render(request, 'energy/Login.html', {'error': 'an error happened'})
+        else:
+            contenxt_dict['error']='验证码错误'
+
+    else:
+        user_form=UserForm(request.POST or None)
+        contenxt_dict['form']=user_form
+        return render(request,'energy/Login.html',contenxt_dict)
 
 
 def Logout(request):
@@ -212,6 +224,8 @@ def sendmail(request):
     send_mail('发送','message','fjl2401@163.com',fail_silently=False)
     return   HttpResponse('success')
 
+
+
 def Forum(request):
     context_dict={}
     messages=Message.objects.all()
@@ -219,4 +233,3 @@ def Forum(request):
     context_dict['comment']=comment
     context_dict['messages']=messages
     return render(request,'energy/forum.html',context_dict)
-
