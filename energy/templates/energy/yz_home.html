@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证码</title>
+
+</head>
+<body>
+<form action="yz_home.html" method="POST">
+        {% csrf_token %}
+
+<div> 用户名：<input type="text" placeholder="用户名" name="username"></div>
+<div>密码：<input type="password" placeholder="密码" name="pwa"></div>
+<div>验证码：<input type="text" name="yzm"></div>
+    <img id="check_code_img" src=" {% url 'energy:yanzheng' %}" onclick="refresh(this)">
+<div><input type="submit" value="确认"></div>
+    <script>
+        function refresh(ths) {
+            ths.src+='?';
+        }
+    </script>
+</form>
+</body>
+</html>

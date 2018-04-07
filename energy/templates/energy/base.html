@@ -76,9 +76,9 @@
           <img src="{% static 'energy/images/1_5.jpg' %}" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p class="lead">sad</p>
-              <a class="btn btn-large btn-primary" href="#">访问专栏</a>
+              <h1 class="h1">节能校园.</h1>
+{#              <p class="lead">减排</p>#}
+              <a class="btn btn-large btn-primary" href="{% url 'energy:article' %}">文章专栏</a>
             </div>
           </div>
         </div>
@@ -86,9 +86,9 @@
           <img src="{% static 'energy/images/1_6.jpg' %}" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>A </h1>
-              <p class="lead">.</p>
-              <a class="btn btn-large btn-primary" href="#"></a>
+              <h1 class="h1">减排新风貌</h1>
+{#              <p class="lead">论坛</p>#}
+              <a class="btn btn-large btn-primary" href="{% url 'energy:forum' %}"> 前往论坛</a>
             </div>
           </div>
         </div>
@@ -96,9 +96,9 @@
           <img src="{% static 'energy/images/1_37.jpg' %}" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
+              <h1 class="h1">关于我们</h1>
               <p class="lead"> </p>
-              <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+              <a class="btn btn-large btn-primary" href="#">前往</a>
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@
  </div>
 {##}
 {#    </div> <!-- /container -->#}
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+{# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>#}
     <script src="{% static 'energy/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

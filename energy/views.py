@@ -2,10 +2,10 @@
 from __future__ import unicode_literals
 from .forms import MessageForm,UserForm
 from .models import *
-import string
-import random
+import django.contrib.sessions
+from io import BytesIO
+from utils import image_2
 from utils import Random_image
-import website.settings as settings
 from django.contrib.auth import authenticate,logout,login
 from django.shortcuts import render,HttpResponse
 from django.core.mail import send_mail
@@ -27,11 +27,10 @@ def detail(request,Message_id):
     msg=Message.objects.get(id=int(Message_id))
     if msg: msg.views+=1
     msg.save()
-    comment=Commit.objects.get_or_create(message=msg)
+    comment=Commit.objects.filter(message=msg)
     context_dict={}
     context_dict['message']=msg
     context_dict['comment']=comment
-
     return  render(request,'energy/detail.html',context_dict)
 
 def submit_msg(request):
@@ -141,41 +140,31 @@ def Blog(request,blog_id):
 
 def Login(request):
     # ver_code
-    ver_code_path = settings.VERIFICATION_CODE_DIR
-    today_str = datetime.date.today().strftime("%Y%m%d")
-    ver_code_img_path = "%s%s" % (ver_code_path, today_str)
-    random_filename = "".join(random.sample(string.ascii_lowercase, 4))
-    random_code = Random_image.verify_code.gene_code(ver_code_img_path, random_filename)
-    cache.set(random_filename, random_code, 30)
     contenxt_dict={}
-    contenxt_dict['today_str']=today_str
+    user_form = UserForm()
+    contenxt_dict['form'] = user_form
     if request.method=='POST':
         username=request.POST['username']
         password=request.POST['password']
-        ver_code=request.POST['verify_code']
-        ver_code_key=request.POST['verify_code_key']
-        if cache.get(ver_code_key)==ver_code:
-            print('pass')
-
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages = Message.objects.all()
-                all_types = Type.objects.all()
-                contenxt_dict['all_messages'] = messages
-                contenxt_dict['all_types'] = all_types
-                return render(request, 'energy/index.html', contenxt_dict)
-            else:
-                return render(request, 'energy/Login.html', {'error': 'an error happened'})
+        ver_code=request.POST['ver_code']
+        true_code=request.session.get('ver_code')
+        if(true_code==ver_code):
+            pass
         else:
             contenxt_dict['error']='验证码错误'
-
+            return render(request,'energy/Login.html',contenxt_dict)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request,user)
+            messages = Message.objects.all()
+            all_types = Type.objects.all()
+            contenxt_dict['all_messages'] = messages
+            contenxt_dict['all_types'] = all_types
+            return render(request, 'energy/index.html', contenxt_dict)
+        else:
+            return render(request, 'energy/Login.html', {'error': 'an error happened'})
     else:
-        user_form=UserForm(request.POST or None)
-        contenxt_dict['form']=user_form
         return render(request,'energy/Login.html',contenxt_dict)
-
-
 def Logout(request):
     logout(request)
     form=UserForm(request.POST or None)
@@ -223,9 +212,6 @@ def Register(request):
 def sendmail(request):
     send_mail('发送','message','fjl2401@163.com',fail_silently=False)
     return   HttpResponse('success')
-
-
-
 def Forum(request):
     context_dict={}
     messages=Message.objects.all()
@@ -233,3 +219,15 @@ def Forum(request):
     context_dict['comment']=comment
     context_dict['messages']=messages
     return render(request,'energy/forum.html',context_dict)
+
+def yz_home(requset):
+    if requset.method=='GET':
+        return render(requset,'energy/yz_home.html')
+    else:
+        return HttpResponse('ok')
+def yanzheng(request):
+   f=BytesIO()
+   img,code=image_2.create_code()
+   request.session['ver_code']=code
+   img.save(f,'PNG')
+   return HttpResponse(f.getvalue())
