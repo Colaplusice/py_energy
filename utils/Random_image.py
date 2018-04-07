@@ -10,7 +10,7 @@ font_path = '/Library/Fonts/Arial.ttf'
 number=4
 
 #图片的高度和宽度
-size=(100,30)
+size=(100,40)
 
 #背景
 bgcolor=(255,255,255)
@@ -57,13 +57,13 @@ def gene_code(save_path,filename):
                           Image.BILINEAR
                           )
     #滤镜 边界加强
-    image=image.filter(ImageFilter.EDGE_ENHANCE_MORE)
+    # image=image.filter(ImageFilter.EDGE_ENHANCE_MORE)
     # path=save_path+'/'+filename+'.png'
     # if not os.path.isfile(path):
     #     os.mkdir(path)
     image.save('%s/%s.png'%(save_path,filename))
     print("savepath:",save_path)
-    return text
+    return image,text
 
 #生成验证码数字
 def gen_text():

@@ -37,11 +37,11 @@ sys.setdefaultencoding('utf-8')
 #email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-password='f15114826978'
+password=''
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '995972493@qq.com'
+EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = password
 # DEFAULT_FROM_EMAIL = 'mail@tuweizhong.com'
 
@@ -138,7 +138,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 

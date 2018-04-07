@@ -15,6 +15,9 @@ urlpatterns = [
     url(r'^article',views.Articles,name='article'),
     url(r'^blog/(?P<blog_id>[0-9])/$',views.Blog,name='blog'),
     url(r'^detail/(?P<Message_id>[0-9])/$',views.detail,name='detail'),
+
+    url(r'^yanzheng', views.yanzheng,name='yanzheng'),
+    url(r'^yz_home', views.yz_home,name='yz_home'),
 ]
               # +static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT),
 
