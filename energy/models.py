@@ -44,7 +44,7 @@ class Article(models.Model):
     views=models.IntegerField(default=0)
     type=models.ForeignKey(Type)
     def __str__(self):
-        return  self.title+"----"+self.content
+        return  self.title
 
 
 #文章类的子表 文章的图片

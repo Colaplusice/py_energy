@@ -18,6 +18,7 @@ urlpatterns = [
 
     url(r'^yanzheng', views.yanzheng,name='yanzheng'),
     url(r'^yz_home', views.yz_home,name='yz_home'),
+    url(r'^test_1', views.test_1,name='test_1'),
 ]
               # +static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT),
 

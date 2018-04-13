@@ -1,0 +1,17 @@
+{% extends 'energy/base.html' %}
+{% block body_block %}
+
+    {% if article %}
+
+        <p>
+{#            {{ article.title }}#}
+{{ article|safe }}
+
+        </p>
+
+        {% else %}
+
+        <h1>fcs</h1>
+    {% endif %}
+
+{% endblock %}

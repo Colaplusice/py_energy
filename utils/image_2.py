@@ -22,6 +22,7 @@ def create_code():
     draw = ImageDraw.Draw(img)
     #设置字体
     font = ImageFont.truetype('Arial.ttf', 25)
+    # font = ImageFont.truetype('.ttf', 25)
 
     code = getRandomChar()
     #将生成的字符画在画布上

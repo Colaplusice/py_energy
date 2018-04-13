@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Title</title>
 {#    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">#}
 {#                 <link rel="stylesheet" type="text/css" href="{% static 'energy/css/style.css' %}">#}
@@ -17,6 +19,9 @@
 {#<link href="http://wenda.golaravel.com/static/css/default/link.css?v=20140930" rel="stylesheet" type="text/css" />#}
 {#<link href="http://wenda.golaravel.com/static/js/plug_module/style.css?v=20140930" rel="stylesheet" type="text/css" />#}
 {#<link href="http://wenda.golaravel.com/static/css/default/login.css?v=20140930" rel="stylesheet" type="text/css" />#}
+
+    {% block head %}
+    {% endblock %}
 
 </head>
 <body>
@@ -109,6 +114,9 @@
     </nav>
     {% block body_block %}
 {% endblock %}
+
+
+
  <div class="panel-footer">
       <footer class="aw-footer-wrap">
         <p>&copy; Company 2013</p>
@@ -118,5 +126,6 @@
 {#    </div> <!-- /container -->#}
 {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>#}
     <script src="{% static 'energy/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'energy/js/jquery-1.11.js' %}"></script>
 </body>
 </html>

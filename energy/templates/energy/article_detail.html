@@ -25,18 +25,19 @@
                 <div class="blog-post">
                     <br>
                        文章内容
-                    {% if article %}
-                                            <h1 class="h1 aw-publish-title" align="center"> {{ article.title }}</h1>
-                            <h4 class="h4" align="right">Posted by <a href="#">admin</a> on 24th January 2015 </h4>
+                    {% if title %}
+                                            <h1 class="h1 aw-publish-title" align="center"> {{title }}</h1>
+                            <h4 class="h4" align="right">发布者:{{ author }} <a href="#"></a> {{ date }} </h4>
                             <br>
                             <br>
-                    <div class="article">
-                    <p class="article">
+                        {% endif %}
+{#                    <div class="article">#}
+                {% if content %}
+           <p style="font-size: 16px;">
+                        {{content|safe}}
 
-                                             {{ article.content }}
-
-                    </p>
-                    </div>
+           </p>
+{#                    </div>#}
                     {% else %}
                     <p>没有内容</p>
                     {% endif %}

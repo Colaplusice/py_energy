@@ -9,3 +9,5 @@ admin.site.register(Message)
 admin.site.register(Type)
 admin.site.register(Commit)
 admin.site.register(Article)
+
+

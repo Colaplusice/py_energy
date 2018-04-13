@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.views.decorators.csrf import csrf_exempt
 from .forms import MessageForm,UserForm
 from .models import *
-import django.contrib.sessions
+import  markdown
 from io import BytesIO
 from utils import image_2
 from utils import Random_image
@@ -136,7 +137,19 @@ def Articles(request):
 
 def Blog(request,blog_id):
         contents = Article.objects.get(pk=blog_id)
-        return render(request, 'energy/article_detail.html', {'article':contents})
+#支持markdown显示
+        contents.content=markdown.markdown(contents.content,
+                                   extentions=[ 'markdown.extensions.extra',
+                                     'markdown.extensions.codehilite',
+                                     'markdown.extensions.toc',]
+                                  )
+
+        context_dict={}
+        context_dict['content']=contents.content
+        context_dict['title']=contents.title
+        context_dict['date']=contents.pub_date
+        context_dict['author']=contents.user
+        return render(request, 'energy/article_detail.html',context_dict)
 
 def Login(request):
     # ver_code
@@ -173,28 +186,35 @@ def Logout(request):
 
 
 def Register(request):
+    print(request.is_ajax())
     if request.method=='POST':
         form=UserForm(request.POST)
-
         if form.is_valid():
+            print(request.POST)
+            print('收到请求')
             username=form.cleaned_data['username']
-            password=form.cleaned_data['password']
+            password_1=form.cleaned_data['password1']
+            password_2=form.cleaned_data['password2']
             email=form.cleaned_data['email']
-            user=form.save()
-            token=Token.generate_validate_token(username)
-            # message = "\n".join([u'{0},欢迎加入我的博客'.format(username), u'请访问该链接，完成用户验证:',
-            #                      '/'.join([Dja.DOMAIN, 'activate', token])])
-            message='欢迎访问我的博客'
-            user.send
-            #return
-            # new_user=User(username=username,password=password,email=email)
-            # new_user.is_active=False
+            print(username)
+            print(password_1)
+            print(password_2)
+            print(email)
+            # user=form.save()
+            # token=Token.generate_validate_token(username)
+            # message='欢迎访问我的博客'
+            # new_user=User(username=username,password=password_2,email=email)
             # new_user.save()
-            if user.is_active:
-                message = Message.objects.filter(user=request.user)
-                return render(request, 'energy/index.html', {'messages': message})
+            # if user.is_active:
+            #     message = Message.objects.filter(user=request.user)
+            #     return render(request, 'energy/index.html', {'messages': message})
+            context_dict = {}
+            context_dict['error'] = 's'
+            context_dict['form'] = form
+            return render(request,'energy/register.html',context_dict)
         else:
             error='register form is not valid'
+            print(request)
             context_dict={}
             context_dict['error']=error
             context_dict['form']=form
@@ -231,3 +251,12 @@ def yanzheng(request):
    request.session['ver_code']=code
    img.save(f,'PNG')
    return HttpResponse(f.getvalue())
+
+@csrf_exempt
+
+def test_1(request):
+
+
+    print(request.is_ajax())
+
+    return  render(request,'energy/test_1.html')
