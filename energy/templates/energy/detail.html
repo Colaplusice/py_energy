@@ -12,7 +12,7 @@
 					<div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="article" data-id="346">
 						<div class="tag-bar clearfix">
 																					<span class="topic-tag">
-								<a class="text" href="http://wenda.golaravel.com/topic/laravel" data-id="57">帖子</a>
+								<a class="text" href="" data-id="57">帖子</a>
 							</span>
 
 													</div>
@@ -81,7 +81,11 @@
 					<!-- 回复编辑器 -->
 					<div class="aw-mod aw-article-replay-box">
 						<a name="answer_form"></a>
+                        {% if not user.is_authenticated%}
 												<p align="center">要回复文章请先<a href="{% url 'energy:Login' %}">登录</a>或<a href="{% url 'energy:register' %}">注册</a></p>
+                        {% else %}
+                            <p align="center">您已经登录，回复功能内测中</p>
+                        {% endif %}
 											</div>
 					<!-- end 回复编辑器 -->
 				</div>
@@ -95,10 +99,10 @@
 						<div class="mod-body">
 							<dl>
 								<dt class="pull-left aw-border-radius-5">
-									<a href="http://wenda.golaravel.com/people/joychi"><img alt="joychi" src="http://wenda.golaravel.com/static/common/avatar-mid-img.png" /></a>
+									<a href=""><img alt="joychi" src="" /></a>
 								</dt>
 								<dd class="pull-left">
-									<a class="aw-user-name" href="http://wenda.golaravel.com/people/joychi" data-id="5192">{{ message.user }}</a>																		<p></p>
+									<a class="aw-user-name" href="" data-id="5192">{{ message.user }}</a>																		<p></p>
 								</dd>
 							</dl>
 						</div>
@@ -157,14 +161,13 @@
 	</div>
 </div>
 
-<div class="aw-footer-wrap">
-	<div class="aw-footer">
-		Copyright © 2018, All Rights Reserved</span>
+{#<div class="aw-footer-wrap">#}
+{#	<div class="aw-footer">#}
+{#		Copyright © 2018, All Rights Reserved</span>#}
 
-		<span class="hidden-xs">Powered By <a href="http://www.wecenter.com/?copyright" target="blank">WeCenter 3.0 Beta 2</a></span>
 
-			</div>
-</div>
+{#			</div>#}
+{#</div>#}
 
 
 {% endblock %}

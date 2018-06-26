@@ -5,6 +5,7 @@ from django.conf import settings
 from . import views
 app_name='energy'
 urlpatterns = [
+    # url(r'',views.index,name='index'),
     url(r'^index',views.index,name='index'),
     url(r'^submit_msg',views.submit_msg,name='submit_msg'),
     url(r'^Login',views.Login,name='Login'),
@@ -15,7 +16,6 @@ urlpatterns = [
     url(r'^article',views.Articles,name='article'),
     url(r'^blog/(?P<blog_id>[0-9])/$',views.Blog,name='blog'),
     url(r'^detail/(?P<Message_id>[0-9])/$',views.detail,name='detail'),
-
     url(r'^yanzheng', views.yanzheng,name='yanzheng'),
     url(r'^yz_home', views.yz_home,name='yz_home'),
     url(r'^test_1', views.test_1,name='test_1'),

@@ -21,6 +21,7 @@ from django.views.static import serve
 # from energy import urls
 from django.conf.urls.static import static
 urlpatterns = [
+    # url(r'^',include('energy.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^energy/', include('energy.urls')),
     url(r'^media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),

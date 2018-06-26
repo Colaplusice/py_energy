@@ -5,24 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Title</title>
-{#    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">#}
-{#                 <link rel="stylesheet" type="text/css" href="{% static 'energy/css/style.css' %}">#}
-{#                  <link rel="stylesheet" type="text/css" href="{% static 'energy/css/bootstrap_2.css' %}">#}
+    <title>节能减排</title>
            <link rel="stylesheet" type="text/css" href="{% static 'energy/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'energy/css/new_1.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'energy/css/new_2.css' %}">
-{#    <link rel="stylesheet" type="text/css" href="{% static 'energy/css/icon.css' %}">#}
-{#    <link rel="stylesheet" type="text/css" href="http://wenda.golaravel.com/static/css/icon.css" />#}
-{#    <link rel="stylesheet" type="text/css" href="http://wenda.golaravel.com/static/css/icon.css" />#}
-{#<link href="http://wenda.golaravel.com/static/css/default/common.css?v=20140930" rel="stylesheet" type="text/css" />#}
-{#<link href="http://wenda.golaravel.com/static/css/default/link.css?v=20140930" rel="stylesheet" type="text/css" />#}
-{#<link href="http://wenda.golaravel.com/static/js/plug_module/style.css?v=20140930" rel="stylesheet" type="text/css" />#}
-{#<link href="http://wenda.golaravel.com/static/css/default/login.css?v=20140930" rel="stylesheet" type="text/css" />#}
-
+    <link rel="stylesheet" type="text/css" href="{% static 'energy/css/style.css' %}">
     {% block head %}
     {% endblock %}
-
 </head>
 <body>
  <nav class="navbar navbar-inverse">
@@ -41,7 +30,7 @@
               <li class="active"><a href="{% url 'energy:index' %}">主页</a></li>
 {#                        注册用户#}
 
-              <li><a href="{% url 'energy:submit_msg' %}">提交问题</a></li>
+              <li class="active"><a href="{% url 'energy:submit_msg' %}">提交问题</a></li>
 
                            {% if user.is_authenticated %}
                    <li class="active"><a href="{% url 'energy:Logout' %}">注销</a></li>
@@ -51,9 +40,9 @@
 
 
                         {% endif %}
-              <li><a href="{% url "energy:article" %}?page_id=1">文章专栏</a></li>
-                        <li><a href="{% url "energy:forum" %}">论坛</a></li>
-                        <li><a href="#about">关于</a></li>
+              <li class="active"><a href="{% url "energy:article" %}?page_id=1">文章专栏</a></li>
+                        <li class="active"><a href="{% url "energy:forum" %}">论坛</a></li>
+                        <li class="active"><a href="#about">关于</a></li>
 {#              <li class="dropdown">#}
 {#                <a href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单 <b class="caret"></b></a>#}
 {#                <ul class="dropdown-menu">#}
@@ -114,17 +103,11 @@
     </nav>
     {% block body_block %}
 {% endblock %}
-
-
-
  <div class="panel-footer">
       <footer class="aw-footer-wrap">
-        <p>&copy; Company 2013</p>
+        <p align="center">&copy; IceCold  SDU 2018</p>
       </footer>
  </div>
-{##}
-{#    </div> <!-- /container -->#}
-{# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>#}
     <script src="{% static 'energy/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'energy/js/jquery-1.11.js' %}"></script>
 </body>

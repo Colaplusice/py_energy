@@ -1,9 +1,10 @@
-body{
-    background:black url("../images/1_5.jpg");
+/*for myself css*/
+
+.aw-footer-wrap{
+    margin-bottom: 10px;
+
 }
-.navbar{
-    border-radius: 0;
-}
-.navbar-brand{
-    font-family: 'Satisfy',cursive;
+label.login_label{
+
+    font-size: 16px;
 }

@@ -1,94 +1,98 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.views.decorators.csrf import csrf_exempt
-from .forms import MessageForm,UserForm
+from .forms import MessageForm, UserForm
 from .models import *
-import  markdown
+import markdown
 from io import BytesIO
 from utils import image_2
 from utils import Random_image
-from django.contrib.auth import authenticate,logout,login
-from django.shortcuts import render,HttpResponse
+from django.contrib.auth import authenticate, logout, login
+from django.shortcuts import render, HttpResponse
 from django.core.mail import send_mail
 from utils.email_send import Token
 from django.core.cache import cache
-
+from django.views import generic
 import datetime
+
+
 # Create your views here.
 def index(request):
-    all_messages=Message.objects.all()
-    types=Type.objects.all()
-    context_dict={}
-    context_dict['all_types']=types
-    context_dict['all_messages']=all_messages
-    return render(request,'energy/index.html',context_dict)
+    all_messages = Message.objects.all()
+    types = Type.objects.all()
+    context_dict = {}
+    context_dict['all_types'] = types
+    context_dict['all_messages'] = all_messages
+    return render(request, 'energy/index.html', context_dict)
 
 
-def detail(request,Message_id):
-    msg=Message.objects.get(id=int(Message_id))
-    if msg: msg.views+=1
+def detail(request, Message_id):
+    msg = Message.objects.get(id=int(Message_id))
+    if msg: msg.views += 1
     msg.save()
-    comment=Commit.objects.filter(message=msg)
-    context_dict={}
-    context_dict['message']=msg
-    context_dict['comment']=comment
-    return  render(request,'energy/detail.html',context_dict)
+    comment = Commit.objects.filter(message=msg)
+    context_dict = {}
+    context_dict['message'] = msg
+    context_dict['comment'] = comment
+    return render(request, 'energy/detail.html', context_dict)
+
 
 def submit_msg(request):
-   if  not request.user.is_authenticated():
-        return render(request,'energy/Login.html')
-   else:
-    if request.POST:
-        message_form=MessageForm(request.POST or None,request.FILES or None)
-        if message_form.is_valid():
-            print("form is valid")
-            # message=Message(user=request.d)
-            message=message_form.save(commit=False)
-            if not request.FILES:
-                message.img = None
+    if not request.user.is_authenticated():
+        return render(request, 'energy/Login.html')
+    else:
+        if request.POST:
+            message_form = MessageForm(request.POST or None, request.FILES or None)
+            if message_form.is_valid():
+                print("form is valid")
+                # message=Message(user=request.d)
+                message = message_form.save(commit=False)
+                if not request.FILES:
+                    message.img = None
 
-            message.title=message_form.cleaned_data['title']
-            message.content=message_form.cleaned_data['content']
-            message.type.name=message_form.cleaned_data['type']
-            message.save()
-            all_messages=Message.objects.filter(user=request.user)
-            context_dict={}
-            context_dict['errors']='添加成功'
-            context_dict['all_messages']=all_messages
-            return render(request,'energy/index.html',context_dict)
-            # else:
-            #     print(message_form)
-            #     context_dict = {}
-            #     all_types = Type.objects.all()
-            #     form = MessageForm(request.POST or None, request.FILES or None)
-            #     context_dict['all_types'] = all_types
-            #     context_dict['error']="the form is not valid"
-            #     return render(request, 'energy/submit_message.html',context_dict)
+                message.title = message_form.cleaned_data['title']
+                message.content = message_form.cleaned_data['content']
+                message.type.name = message_form.cleaned_data['type']
+                message.save()
+                all_messages = Message.objects.filter(user=request.user)
+                context_dict = {}
+                context_dict['errors'] = '添加成功'
+                context_dict['all_messages'] = all_messages
+                return render(request, 'energy/index.html', context_dict)
+                # else:
+                #     print(message_form)
+                #     context_dict = {}
+                #     all_types = Type.objects.all()
+                #     form = MessageForm(request.POST or None, request.FILES or None)
+                #     context_dict['all_types'] = all_types
+                #     context_dict['error']="the form is not valid"
+                #     return render(request, 'energy/submit_message.html',context_dict)
+            else:
+                print('表格错误')
+                print(request.POST)
+                # print(MessageForm.cleaned_data['title'])
+                print(MessageForm.cleaned_data)
+                # print(MessageForm.cleaned_data['type'])
+                # print(request.FILES)
+                error = 'the form is not valid'
+                context_dict = {}
+                all_types = Type.objects.all()
+                form = MessageForm(request.POST or None, request.FILES or None)
+                context_dict['form'] = form
+                context_dict['all_types'] = all_types
+                context_dict['error'] = error
+                return render(request, 'energy/submit_message.html', context_dict)
+
+
+
         else:
-            print('表格错误')
-            print(request.POST)
-            # print(MessageForm.cleaned_data['title'])
-            print(MessageForm.cleaned_data)
-            # print(MessageForm.cleaned_data['type'])
-            # print(request.FILES)
-            error='the form is not valid'
             context_dict = {}
             all_types = Type.objects.all()
             form = MessageForm(request.POST or None, request.FILES or None)
             context_dict['form'] = form
             context_dict['all_types'] = all_types
-            context_dict['error'] = error
-            return render(request, 'energy/submit_message.html',context_dict)
+            return render(request, 'energy/submit_message.html', context_dict)
 
-
-
-    else:
-        context_dict={}
-        all_types = Type.objects.all()
-        form=MessageForm(request.POST or None,request.FILES or None)
-        context_dict['form']=form
-        context_dict['all_types']=all_types
-        return render(request, 'energy/submit_message.html',context_dict)
 
 def Articles(request):
     if request.GET.get('page_id') is None:
@@ -135,40 +139,42 @@ def Articles(request):
     response = render(request, 'energy/article.html', context_dict)
     return response
 
-def Blog(request,blog_id):
-        contents = Article.objects.get(pk=blog_id)
-#支持markdown显示
-        contents.content=markdown.markdown(contents.content,
-                                   extentions=[ 'markdown.extensions.extra',
-                                     'markdown.extensions.codehilite',
-                                     'markdown.extensions.toc',]
-                                  )
 
-        context_dict={}
-        context_dict['content']=contents.content
-        context_dict['title']=contents.title
-        context_dict['date']=contents.pub_date
-        context_dict['author']=contents.user
-        return render(request, 'energy/article_detail.html',context_dict)
+def Blog(request, blog_id):
+    contents = Article.objects.get(pk=blog_id)
+    # 支持markdown显示
+    contents.content = markdown.markdown(contents.content,
+                                         extentions=['markdown.extensions.extra',
+                                                     'markdown.extensions.codehilite',
+                                                     'markdown.extensions.toc', ]
+                                         )
+
+    context_dict = {}
+    context_dict['content'] = contents.content
+    context_dict['title'] = contents.title
+    context_dict['date'] = contents.pub_date
+    context_dict['author'] = contents.user
+    return render(request, 'energy/article_detail.html', context_dict)
+
 
 def Login(request):
     # ver_code
-    contenxt_dict={}
+    contenxt_dict = {}
     user_form = UserForm()
     contenxt_dict['form'] = user_form
-    if request.method=='POST':
-        username=request.POST['username']
-        password=request.POST['password']
-        ver_code=request.POST['ver_code']
-        true_code=request.session.get('ver_code')
-        if(true_code==ver_code):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        ver_code = request.POST['ver_code']
+        true_code = request.session.get('ver_code')
+        if (true_code == ver_code):
             pass
         else:
-            contenxt_dict['error']='验证码错误'
-            return render(request,'energy/Login.html',contenxt_dict)
+            contenxt_dict['error'] = '验证码错误'
+            return render(request, 'energy/Login.html', contenxt_dict)
         user = authenticate(username=username, password=password)
         if user is not None:
-            login(request,user)
+            login(request, user)
             messages = Message.objects.all()
             all_types = Type.objects.all()
             contenxt_dict['all_messages'] = messages
@@ -177,25 +183,27 @@ def Login(request):
         else:
             return render(request, 'energy/Login.html', {'error': 'an error happened'})
     else:
-        return render(request,'energy/Login.html',contenxt_dict)
+        return render(request, 'energy/Login.html', contenxt_dict)
+
+
 def Logout(request):
     logout(request)
-    form=UserForm(request.POST or None)
-    context={'form':form }
-    return render(request,'energy/Login.html',context)
+    form = UserForm(request.POST or None)
+    context = {'form': form}
+    return render(request, 'energy/Login.html', context)
 
 
 def Register(request):
     print(request.is_ajax())
-    if request.method=='POST':
-        form=UserForm(request.POST)
+    if request.method == 'POST':
+        form = UserForm(request.POST)
         if form.is_valid():
             print(request.POST)
             print('收到请求')
-            username=form.cleaned_data['username']
-            password_1=form.cleaned_data['password1']
-            password_2=form.cleaned_data['password2']
-            email=form.cleaned_data['email']
+            username = form.cleaned_data['username']
+            password_1 = form.cleaned_data['password1']
+            password_2 = form.cleaned_data['password2']
+            email = form.cleaned_data['email']
             print(username)
             print(password_1)
             print(password_2)
@@ -211,52 +219,56 @@ def Register(request):
             context_dict = {}
             context_dict['error'] = 's'
             context_dict['form'] = form
-            return render(request,'energy/register.html',context_dict)
+            return render(request, 'energy/register.html', context_dict)
         else:
-            error='register form is not valid'
+            error = 'register form is not valid'
             print(request)
-            context_dict={}
-            context_dict['error']=error
-            context_dict['form']=form
-            return render(request,'energy/register.html',context_dict)
+            context_dict = {}
+            context_dict['error'] = error
+            context_dict['form'] = form
+            return render(request, 'energy/register.html', context_dict)
     else:
         print(request.method)
-        error='this is get request'
-        context_dict={}
-        form=UserForm()
-        context_dict['form']=form
-        context_dict['error']=error
+        error = 'this is get request'
+        context_dict = {}
+        form = UserForm()
+        context_dict['form'] = form
+        context_dict['error'] = error
 
-        return render(request,'energy/register.html',context_dict)
+        return render(request, 'energy/register.html', context_dict)
+
 
 def sendmail(request):
-    send_mail('发送','message','fjl2401@163.com',fail_silently=False)
-    return   HttpResponse('success')
+    send_mail('发送', 'message', 'fjl2401@163.com', fail_silently=False)
+    return HttpResponse('success')
+
+
 def Forum(request):
-    context_dict={}
-    messages=Message.objects.all()
-    comment=Commit.objects.get_or_create(message=messages)
-    context_dict['comment']=comment
-    context_dict['messages']=messages
-    return render(request,'energy/forum.html',context_dict)
+    context_dict = {}
+    messages = Message.objects.all()
+    comment = Commit.objects.get_or_create(message=messages)
+    context_dict['comment'] = comment
+    context_dict['messages'] = messages
+    return render(request, 'energy/forum.html', context_dict)
+
 
 def yz_home(requset):
-    if requset.method=='GET':
-        return render(requset,'energy/yz_home.html')
+    if requset.method == 'GET':
+        return render(requset, 'energy/yz_home.html')
     else:
         return HttpResponse('ok')
+
+
 def yanzheng(request):
-   f=BytesIO()
-   img,code=image_2.create_code()
-   request.session['ver_code']=code
-   img.save(f,'PNG')
-   return HttpResponse(f.getvalue())
+    f = BytesIO()
+    img, code = image_2.create_code()
+    request.session['ver_code'] = code
+    img.save(f, 'PNG')
+    return HttpResponse(f.getvalue())
+
 
 @csrf_exempt
-
 def test_1(request):
-
-
     print(request.is_ajax())
 
-    return  render(request,'energy/test_1.html')
+    return render(request, 'energy/test_1.html')

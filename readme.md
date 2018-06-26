@@ -12,3 +12,14 @@ comment 要将 user pubdate forign_key为message id
 
 每条comment的primary key是id  时间可能不是唯一的 用户不是唯一的
 没有类型
+
+## media文件储存
+
+## url映射
+映射到固定的url,只要经过某个url模块映射的就必须带上?
+
+
+
+
+
+ 
