@@ -1,0 +1,70 @@
+{% extends 'energy/base.html' %}
+{% block body_block %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="panel panel-default" align="center">
+                    <div class="panel-body" align="center">
+                        <h3>login</h3>
+                        {% if error %}
+                            <p><strong> {{ error }}</strong></p>
+                        {% endif %}
+
+                        <form class="form-horizontal" action="{% url 'login' %}" method="post"
+                              enctype="multipart/form-data">
+                            <div class="form-group">
+                                {% csrf_token %}
+                                <label class="control-label col-md-2" for="id_username">Username:</label>
+
+                                <div class="col-md-6">
+                                    <input class="input-group" type="text" id="id_username" maxlength="30"
+                                           name="username">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="control-label col-md-2" for="id_password">Password:</label>
+                                <div class="col-md-6">
+                                    <input class="input-group" type="password" id="id_password" maxlength="30"
+                                           name="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                <div class="col-md-3"><label class="login_label">请输入验证码:</label>
+
+                                </div>
+
+                                <div class="input-group col-md-3">
+                                    <input class="input-group-sm" name="ver_code">
+                                </div>
+                            </div>
+
+                            <img class="" src="{% url 'verify' %}" onclick="refresh(this)">
+                            &nbsp; &nbsp;
+                            <button type="submit" class="btn btn-success">submit</button>
+                            <script>
+                                function refresh(ths) {
+                                    ths.src += '?';
+                                }
+                            </script>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        {% if error %}
+                            {{ error }}
+                            </div>
+                        {% endif %}
+                    <div class="panel-footer">
+                        没有账户?点击注册
+                        <a href="{% url 'register' %}">register here</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,105 +1,24 @@
 {% extends 'energy/base.html' %}
 ]{% block body_block %}
-{#    <div class="info-sec">#}
-{#        <div class="container">#}
-{#            <div class="row">#}
-{#                <div class="col-md-10">#}
-{#                    Say hello to me at <strong>hello</strong>@yourdomain.com#}
-{#                </div>#}
-{#                <div class="col-md-2">#}
-{#                    <div class="social-link">#}
-{#                        <a href="#" class="btn btn-default">链接<i class="fafa-2x"></i></a>#}
-{#                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-facebook fa-2x"></i></a>#}
-{#                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-linkedin fa-2x"></i></a>#}
-{#                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-google-plus fa-2x"></i></a>#}
-{#                    </div>#}
-{##}
-{#                </div>#}
-{##}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-    <!--END INFO SECTION-->
-            <div class="container ">
-                <div class="blog-post">
-                    <br>
-                       文章内容
-                    {% if title %}
-                                            <h1 class="h1 aw-publish-title" align="center"> {{title }}</h1>
-                            <h4 class="h4" align="right">发布者:{{ author }} <a href="#"></a> {{ date }} </h4>
-                            <br>
-                            <br>
-                        {% endif %}
-{#                    <div class="article">#}
-                {% if content %}
-           <p style="font-size: 16px;">
-                        {{content|safe}}
-
-           </p>
-{#                    </div>#}
-                    {% else %}
-                    <p>没有内容</p>
-                    {% endif %}
-                               </br>
-{#                    <a href="#" class="btn btn-default btn-lg ">Read More <i class="fa fa-angle-right"></i></a>#}
-                </div>
-                <br />
-{#                <nav>#}
-{#                    <ul class="pagination">#}
-{#                        <li>#}
-{#                            <a href="#" aria-label="Previous">#}
-{#                                <span aria-hidden="true">&laquo;</span>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li><a href="#">1</a></li>#}
-{#                        <li><a href="#">2</a></li>#}
-{#                        <li><a href="#">3</a></li>#}
-{#                        <li><a href="#">4</a></li>#}
-{#                        <li><a href="#">5</a></li>#}
-{#                        <li>#}
-{#                            <a href="#" aria-label="Next">#}
-{#                                <span aria-hidden="true">&raquo;</span>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                    </ul>#}
-{#                </nav>#}
-            </div>
-{#            <div class="col-md-1"></div>#}
-{#            <div class="col-md-3" style="padding-top: 30px;">#}
-{#					<div class="row">#}
-{#              {% if categories %}#}
-{#                    <ul class="list-group">#}
-{#                        <li class="list-group-item"><strong>CATEGORIES</strong></li>#}
-{#                        {% for category in categories %}#}
-{#                         <li class="list-group-item"><a href="{% url 'category'  category.slug %}">{{ category.name }} ({{ category.views }}) </a></li>#}
-{#                        {% endfor %}#}
-{#                    </ul>#}
-{#                {% else %}#}
-{#                    <strong>There are no categories present.</strong>#}
-{#                {% endif %}#}
-{#				</div>#}
-{#				<h3>Advertising</h3>#}
-{#				</div>#}
-{#            </div>#}
-{##}
-{#        </div>#}
-{#    <!--END HOME PAGE SECTION-->#}
-{#    <div class="footer-sec" style="margin-top: 0px;">#}
-{#        <div class="container">#}
-{#            <div class="row">#}
-{#                <div class="col-md-12 foo-inner">#}
-{#                    &copy; 2015 Yourdomain.com | More Templates <a href="http://www.smallseashell.com/" target="_blank" title="贝壳模板">贝壳模板</a> - Collect from <a href="http://www.smallseashell.com/" title="网页模板" target="_blank">网页模板</a>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- END FOOTER SECTION -->#}
-{#    <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME -->#}
-{#    <!-- CORE JQUERY -->#}
-{#    <script src="/static/js/jquery-1.11.js"></script>#}
-{#    <!-- BOOTSTRAP SCRIPTS -->#}
-{#    <script src="/static/assets/js/bootstrap.js"></script>#}
-{#    <script src="/static/js/bootstrap.js"></script>#}
-
+    <div class="container ">
+        <div class="blog-post">
+            <br>
+            文章内容
+            {% if title %}
+                <h1 class="h1 aw-publish-title" align="center"> {{ title }}</h1>
+                <h4 class="h4" align="right">发布者:{{ author }} <a href="#"></a> {{ date }} </h4>
+                <br>
+                <br>
+            {% endif %}
+            {% if content %}
+                <p style="font-size: 16px;">
+                    {{ content|safe }}
+                </p>
+            {% else %}
+                <p>没有内容</p>
+            {% endif %}
+            </br>
+        </div>
+        <br/>
+    </div>
 {% endblock %}

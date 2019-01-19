@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>节能减排</title>
-           <link rel="stylesheet" type="text/css" href="{% static 'energy/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'energy/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'energy/css/new_1.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'energy/css/new_2.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'energy/css/style.css' %}">
@@ -14,10 +14,10 @@
     {% endblock %}
 </head>
 <body>
- <nav class="navbar navbar-inverse">
-        <div class="container">
-          <div class="navbar-header navbar-inverse">
-            <button type="button"class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar" >
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header navbar-inverse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -25,90 +25,78 @@
             <a class="navbar-brand active" href="#">节能校园</a>
         </div>
 
-     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-              <li class="active"><a href="{% url 'energy:index' %}">主页</a></li>
-{#                        注册用户#}
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'index' %}">主页</a></li>
+                {#                        注册用户#}
 
-              <li class="active"><a href="{% url 'energy:submit_msg' %}">提交问题</a></li>
+                <li class="active"><a href="{% url 'submit_msg' %}">提交问题</a></li>
 
-                           {% if user.is_authenticated %}
-                   <li class="active"><a href="{% url 'energy:Logout' %}">注销</a></li>
-                        {% else %}
-              <li class="active"><a href="{% url 'energy:Login' %}">登录</a></li>
-              <li class="active"><a href="{% url 'energy:register' %}">注册</a></li>
+                {% if user.is_authenticated %}
+                    <li class="active"><a href="{% url 'log_out' %}">注销</a></li>
+                {% else %}
+                    <li class="active"><a href="{% url 'login' %}">登录</a></li>
+                    <li class="active"><a href="{% url 'register' %}">注册</a></li>
 
 
-                        {% endif %}
-              <li class="active"><a href="{% url "energy:article" %}?page_id=1">文章专栏</a></li>
-                        <li class="active"><a href="{% url "energy:forum" %}">论坛</a></li>
-                        <li class="active"><a href="#about">关于</a></li>
-{#              <li class="dropdown">#}
-{#                <a href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单 <b class="caret"></b></a>#}
-{#                <ul class="dropdown-menu">#}
-{#                  <li><a href="#">Action</a></li>#}
-{#                  <li><a href="#">Another action</a></li>#}
-{#                  <li><a href="#">Something else here</a></li>#}
-{#                  <li class="divider"></li>#}
-{#                  <li class="nav-header">Nav header</li>#}
-{#                  <li><a href="#">Separated link</a></li>#}
-{#                  <li><a href="#">One more separated link</a></li>#}
-{#                </ul>#}
-{#              </li>#}
-              <form class="navbar-form pull-right">
-              <input class="input-sm" type="text" placeholder="请输入搜索内容">
-              <button type="submit" class="btn">搜索</button>
-            </form>
+                {% endif %}
+                <li class="active"><a href="{% url "article" %}?page_id=1">文章专栏</a></li>
+                <li class="active"><a href="{% url "forum" %}">论坛</a></li>
+                <li class="active"><a href="#about">关于</a></li>
+                <form class="navbar-form pull-right">
+                    <input class="input-sm" type="text" placeholder="请输入搜索内容">
+                    <button type="submit" class="btn">搜索</button>
+                </form>
             </ul>
 
 
-     </div>
-              </div>
-           <div id="myCarousel" class="carousel slide">
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="{% static 'energy/images/1_5.jpg' %}" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1 class="h1">节能校园.</h1>
-{#              <p class="lead">减排</p>#}
-              <a class="btn btn-large btn-primary" href="{% url 'energy:article' %}">文章专栏</a>
-            </div>
-          </div>
         </div>
-        <div class="item">
-          <img src="{% static 'energy/images/1_6.jpg' %}" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1 class="h1">减排新风貌</h1>
-{#              <p class="lead">论坛</p>#}
-              <a class="btn btn-large btn-primary" href="{% url 'energy:forum' %}"> 前往论坛</a>
+    </div>
+    <div id="myCarousel" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="{% static 'energy/images/1_5.jpg' %}" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="h1">节能校园.</h1>
+                        {#              <p class="lead">减排</p>#}
+                        <a class="btn btn-large btn-primary" href="{% url 'article' %}">文章专栏</a>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="{% static 'energy/images/1_37.jpg' %}" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1 class="h1">关于我们</h1>
-              <p class="lead"> </p>
-              <a class="btn btn-large btn-primary" href="#">前往</a>
+            <div class="item">
+                <img src="{% static 'energy/images/1_6.jpg' %}" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="h1">减排新风貌</h1>
+                        {#              <p class="lead">论坛</p>#}
+                        <a class="btn btn-large btn-primary" href="{% url 'forum' %}"> 前往论坛</a>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="item">
+                <img src="{% static 'energy/images/1_37.jpg' %}" alt="">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="h1">关于我们</h1>
+                        <p class="lead"></p>
+                        <a class="btn btn-large btn-primary" href="#">前往</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
     </div><!-- /.carousel -->
-    </nav>
-    {% block body_block %}
+</nav>
+{% block body_block %}
 {% endblock %}
- <div class="panel-footer">
-      <footer class="aw-footer-wrap">
-        <p align="center">&copy; IceCold  SDU 2018</p>
-      </footer>
- </div>
-    <script src="{% static 'energy/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'energy/js/jquery-1.11.js' %}"></script>
+<div class="panel-footer">
+    <footer class="aw-footer-wrap">
+        <p align="center">&copy; IceCold SDU 2018</p>
+    </footer>
+</div>
+<script src="{% static 'energy/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'energy/js/jquery-1.11.js' %}"></script>
 </body>
 </html>

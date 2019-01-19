@@ -1,13 +1,10 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from models import *
+from energy.models import Message, Type, Commit, Article
 
-# Register your models here.
+# register your models here.
 admin.site.register(Message)
 admin.site.register(Type)
 admin.site.register(Commit)
 admin.site.register(Article)
-
-

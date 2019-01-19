@@ -1,118 +1,139 @@
-
 {% extends 'energy/base.html' %}
 {% block body_block %}
-<div class="aw-container-wrap">
-	<div class="container">
-		<div class="row">
-			<div class="aw-content-wrap clearfix">
-				<div class="col-sm-12 col-md-9 aw-main-content">
-					<!-- 新消息通知 -->
-					<div class="aw-mod aw-notification-box hide" id="index_notification">
-						<div class="mod-head common-head">
-							<h2>
-								<span class="pull-right"><a href="#" class="text-color-999"><i class="icon icon-setting"></i> 通知设置</a></span>
-								<i class="icon icon-bell"></i>新通知<em class="badge badge-important" name="notification_unread_num"></em>
-							</h2>
-						</div>
-						<div class="mod-body">
-							<ul id="notification_list"></ul>
-						</div>
-						<div class="mod-footer clearfix">
-							<a href="javascript:;" onclick="AWS.Message.read_notification(false, 0, false);" class="pull-left btn btn-mini btn-gray">我知道了</a>
-							<a href="#" class="pull-right btn btn-mini btn-success">查看所有</a>
-						</div>
-					</div>
-					<!-- end 新消息通知 -->
-					<!-- tab切换 -->
-					<ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
-						<li><a href="#">等待回复</a></li>
-						<li><a href="#" id="sort_control_hot">热门</a></li>
-						<li><a href="#">推荐</a></li>
-						<li class="active"><a href="#">最新</a></li>
+    <div class="aw-container-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="aw-content-wrap clearfix">
+                    <div class="col-sm-12 col-md-9 aw-main-content">
+                        <!-- 新消息通知 -->
+                        <div class="aw-mod aw-notification-box hide" id="index_notification">
+                            <div class="mod-head common-head">
+                                <h2>
+                                    <span class="pull-right"><a href="#" class="text-color-999"><i
+                                            class="icon icon-setting"></i> 通知设置</a></span>
+                                    <i class="icon icon-bell"></i>新通知<em class="badge badge-important"
+                                                                         name="notification_unread_num"></em>
+                                </h2>
+                            </div>
+                            <div class="mod-body">
+                                <ul id="notification_list"></ul>
+                            </div>
+                            <div class="mod-footer clearfix">
+                                <a href="javascript:;" onclick="AWS.Message.read_notification(false, 0, false);"
+                                   class="pull-left btn btn-mini btn-gray">我知道了</a>
+                                <a href="#" class="pull-right btn btn-mini btn-success">查看所有</a>
+                            </div>
+                        </div>
+                        <!-- end 新消息通知 -->
+                        <!-- tab切换 -->
+                        <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
+                            <li><a href="#">等待回复</a></li>
+                            <li><a href="#" id="sort_control_hot">热门</a></li>
+                            <li><a href="#">推荐</a></li>
+                            <li class="active"><a href="#">最新</a></li>
 
-						<h2 class="hidden-xs"><i class="icon icon-list"></i> 发现</h2>
-					</ul>
-					<!-- end tab切换 -->
-
-
-					<div class="aw-mod aw-explore-list">
-						<div class="mod-body">
-							<div class="aw-common-list">
-
-                                {% for message in messages %}
-<div class="aw-item " data-topic-id="299,">
-	<a class="aw-user-name hidden-xs" data-id="613" href="#" rel="nofollow"><img src="" alt="" /></a>	<div class="aw-question-content">
-		<h4>
-						<a href=" {% url 'energy:detail' message.id%}">{{ message.title }}</a>
-					</h4>
-				<div class="pull-right hidden-xs contribute">
-			<span class="pull-right text-color-999">贡献</span>
-		    		    <a class="aw-user-name" data-id="29" href="#" rel="nofollow">信息的图片</a>
-		    		    <a class="aw-user-name" data-id="5015" href="#" rel="nofollow"><img src="" alt="" /></a>
-		    		</div>
-
-		<p>
-				<span class="text-color-999"> 2个回复 • {{ message.views }}次浏览 • {{ message.pub_date }}	•  来自相关话题	{{ message.type }}		</span>
-{#									<span class="text-color-999 related-topic hide">  </span>#}
-		</p>
-
-			</div>
-</div>
-                                {%endfor %}
-
-							</div>
-						</div>
-						<div class="mod-footer">
-							<div class="page-control"><ul class="pagination pull-right"><li class="active"><a href="javascript:;">1</a></li><li><a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">2</a></li><li><a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-3">3</a></li><li><a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-4">4</a></li><li><a href="#">&gt;</a></li><li><a href="#">&gt;&gt;</a></li></ul></div>						</div>
-					</div>
-				</div>
-
-				<!-- 侧边栏 -->
-				<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
-					<div class="aw-mod">
-	<div class="mod-head">
-		<h3>专题</h3>
-	</div>
-	<div class="mod-body">
-		<ul>
-							<li><a href="http://wenda.golaravel.com/feature/1">专题</a></li>
-					</ul>
-	</div>
-</div>
-					<div class="aw-mod aw-text-align-justify">
-	<div class="mod-head">
-		<a href="http://wenda.golaravel.com/topic/channel-hot" class="pull-right">更多 &gt;</a>
-		<h3>热门话题</h3>
-	</div>
-	<div class="mod-body">
-							</div>
-</div>
-					<div class="aw-mod aw-text-align-justify">
-	<div class="mod-head">
-		<a href="http://wenda.golaravel.com/people/" class="pull-right">更多 &gt;</a>
-		<h3>热门用户</h3>
-	</div>
-	<div class="mod-body">
-
-		<dl>
-			<dt class="pull-left aw-border-radius-5">
-				<a href="http://wenda.golaravel.com/people/G8Ycn"><img alt="" src="http://wenda.golaravel.com/static/common/avatar-mid-img.png" /></a>
-			</dt>
-			<dd class="pull-left">
-				<a href="http://wenda.golaravel.com/people/G8Ycn" data-id="740" class="aw-user-name">G8Ycn						</a>
-				<p class="signature"></p>
-				<p><b>29</b> 个问题, <b>2</b> 次赞同</p>
-			</dd>
-		</dl>
-					</div>
-</div>				</div>
-				<!-- end 侧边栏 -->
-			</div>
-		</div>
-	</div>
-</div>
+                            <h2 class="hidden-xs"><i class="icon icon-list"></i> 发现</h2>
+                        </ul>
+                        <!-- end tab切换 -->
 
 
+                        <div class="aw-mod aw-explore-list">
+                            <div class="mod-body">
+                                <div class="aw-common-list">
 
+                                    {% for message in messages %}
+                                        <div class="aw-item " data-topic-id="299,">
+                                            <a class="aw-user-name hidden-xs" data-id="613" href="#" rel="nofollow"><img
+                                                    src="" alt=""/></a>
+                                            <div class="aw-question-content">
+                                                <h4>
+                                                    <a href=" {% url 'detail' message.id %}">{{ message.title }}</a>
+                                                </h4>
+                                                <div class="pull-right hidden-xs contribute">
+                                                    <span class="pull-right text-color-999">贡献</span>
+                                                    <a class="aw-user-name" data-id="29" href="#"
+                                                       rel="nofollow">信息的图片</a>
+                                                    <a class="aw-user-name" data-id="5015" href="#" rel="nofollow"><img
+                                                            src="" alt=""/></a>
+                                                </div>
 
+                                                <p>
+                                                    <span class="text-color-999"> 2个回复 • {{ message.views }}次浏览 • {{ message.pub_date }}	•  来自相关话题	{{ message.type }}		</span>
+                                                    {#									<span class="text-color-999 related-topic hide">  </span>#}
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                            <div class="mod-footer">
+                                <div class="page-control">
+                                    <ul class="pagination pull-right">
+                                        <li class="active"><a href="javascript:;">1</a></li>
+                                        <li>
+                                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-3">3</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-4">4</a>
+                                        </li>
+                                        <li><a href="#">&gt;</a></li>
+                                        <li><a href="#">&gt;&gt;</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 侧边栏 -->
+                    <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+                        <div class="aw-mod">
+                            <div class="mod-head">
+                                <h3>专题</h3>
+                            </div>
+                            <div class="mod-body">
+                                <ul>
+                                    <li><a href="http://wenda.golaravel.com/feature/1">专题</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="aw-mod aw-text-align-justify">
+                            <div class="mod-head">
+                                <a href="http://wenda.golaravel.com/topic/channel-hot" class="pull-right">更多 &gt;</a>
+                                <h3>热门话题</h3>
+                            </div>
+                            <div class="mod-body">
+                            </div>
+                        </div>
+                        <div class="aw-mod aw-text-align-justify">
+                            <div class="mod-head">
+                                <a href="http://wenda.golaravel.com/people/" class="pull-right">更多 &gt;</a>
+                                <h3>热门用户</h3>
+                            </div>
+                            <div class="mod-body">
+
+                                <dl>
+                                    <dt class="pull-left aw-border-radius-5">
+                                        <a href="http://wenda.golaravel.com/people/G8Ycn"><img alt=""
+                                                                                               src="http://wenda.golaravel.com/static/common/avatar-mid-img.png"/></a>
+                                    </dt>
+                                    <dd class="pull-left">
+                                        <a href="http://wenda.golaravel.com/people/G8Ycn" data-id="740"
+                                           class="aw-user-name">G8Ycn </a>
+                                        <p class="signature"></p>
+                                        <p><b>29</b> 个问题, <b>2</b> 次赞同</p>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end 侧边栏 -->
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

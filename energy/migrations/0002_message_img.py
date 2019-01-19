@@ -7,14 +7,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('energy', '0001_initial'),
-    ]
+    dependencies = [("energy", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='message',
-            name='img',
-            field=models.FileField(default='', upload_to=b''),
-        ),
+            model_name="message",
+            name="img",
+            field=models.FileField(default="", upload_to=b""),
+        )
     ]

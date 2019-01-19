@@ -9,7 +9,7 @@ class MessageForm(forms.ModelForm):
 
     class Meta:
         model = Message
-        fields = ['title', 'content', 'img', 'type']
+        fields = ["title", "content", "img", "type"]
 
 
 class UserForm(UserCreationForm):
@@ -17,4 +17,4 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ["username", "email"]

@@ -8,14 +8,12 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('energy', '0002_message_img'),
-    ]
+    dependencies = [("energy", "0002_message_img")]
 
     operations = [
         migrations.AlterField(
-            model_name='message',
-            name='pub_date',
+            model_name="message",
+            name="pub_date",
             field=models.DateTimeField(default=django.utils.timezone.now),
-        ),
+        )
     ]

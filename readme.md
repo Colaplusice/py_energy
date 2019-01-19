@@ -1,4 +1,5 @@
-## 第四个django_project 
+## 节能减排比赛
+ 
 关于节能减排的网站搭建：
 1. 发布文章的功能
 2. 留言板的功能，显示校园内水电报修的信息，供维修人员查看
@@ -7,19 +8,10 @@
 、浏览人数、评论数等信息
 
 #设计数据库
+
 message 需要comment 
 comment 要将 user pubdate forign_key为message id
-
 每条comment的primary key是id  时间可能不是唯一的 用户不是唯一的
 没有类型
-
-## media文件储存
-
-## url映射
-映射到固定的url,只要经过某个url模块映射的就必须带上?
-
-
-
-
 
  

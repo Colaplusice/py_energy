@@ -8,14 +8,14 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('energy', '0007_commit'),
-    ]
+    dependencies = [("energy", "0007_commit")]
 
     operations = [
         migrations.AlterField(
-            model_name='message',
-            name='type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='energy.Type'),
-        ),
+            model_name="message",
+            name="type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="energy.Type"
+            ),
+        )
     ]

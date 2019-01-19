@@ -4,86 +4,82 @@
     <script src="{% static 'energy/js/jquery-3.2.1.min.js' %}"></script>
 {% endblock %}
 {% block body_block %}
-<div class="container-fluid">
-<div class="panel">
-    {% if error %}
-     <h1> {{ error }}</h1>
-         {% endif %}
+    <div class="container-fluid">
+        <div class="panel">
+            {% if error %}
+                <h1> {{ error }}</h1>
+            {% endif %}
 
- <form class="form-horizontal">
-     {% csrf_token %}
-    {% include 'energy/form_template_2.html' %}
-<div class="form-group">
-    <div class="col-sm-offset-2">
-            <label class="btn-success" id="rend">提交</label>
+            <form class="form-horizontal">
+                {% csrf_token %}
+                {% include 'energy/form_template_2.html' %}
+                <div class="form-group">
+                    <div class="col-sm-offset-2">
+                        <label class="btn-success" id="rend">提交</label>
+
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+
 
     </div>
-</div>
-</form>
-
-
-
-</div>
-
-
-</div>
 
     <script>
-    function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
-    }
-});
-// using jQuery
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
-    $(document).ready(function () {
-        $("#rend").click(function () {
-            alert('调用了ajax函数')
-            $.post("{% url 'energy:register' %}",
-                {username:$("#id_username").val(),
-                password1:$("#id_password").val(),
-                password2:$("#id_password").val(),
-                },
-                function (ret) {
-                    if (ret==1){
-                        alert('登录成功');
-                        document.getElementById('test').value='成功'
-                        window.location.href="{% url 'energy:index' %}"
-                    }
-                    else {
-                        alert('账号密码错误')
-                    }
-
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
+            }
+        });
 
-            )
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
 
+        $(document).ready(function () {
+            $("#rend").click(function () {
+                $.post("{% url 'register' %}",
+                    {
+                        username: $("#id_username").val(),
+                        password1: $("#id_password").val(),
+                        password2: $("#id_password").val(),
+                    },
+                    function (ret) {
+                        if (ret == 1) {
+                            alert('登录成功');
+                            document.getElementById('test').value = '成功'
+                            window.location.href = "{% url 'index' %}"
+                        }
+                        else {
+                            alert('账号密码错误')
+                        }
 
+                    }
+                )
+            })
         })
-
-    })
-
     </script>
 
 {% endblock %}

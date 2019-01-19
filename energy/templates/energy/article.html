@@ -1,142 +1,42 @@
 {% extends 'energy/base.html' %}
 {% block body_block %}
-{#{% if user.is_authenticated %}#}
-{#    <div class="page-header">#}
-{##}
-{#                <h1>Rango says... hello {{ user.username }}!</h1>#}
-{#            {% else %}#}
-{#                <h1>Rango says... hello world!</h1>#}
-{#            {% endif %}#}
-{#</div>#}
-{##}
-{#         <div class="row placeholders">#}
-{#            <div class="col-xs-12 col-sm-6 placeholder">#}
-{#   <div class="panel panel-primary">#}
-{#    <div class="panel-heading">#}
-{#            <h3 class="panel-title">Categories and views</h3>#}
-{#    </div>#}
-{#</div>#}
-{#              {% if categories %}#}
-{#                    <ul class="list-group">#}
-{#                        {% for category in categories %}#}
-{#                         <li class="list-group-item"><a href="{% url 'category'  category.slug %}">{{ category.name }} ({{ category.views }}) </a></li>#}
-{#                        {% endfor %}#}
-{#                    </ul>#}
-{#                {% else %}#}
-{#                    <strong>There are no categories present.</strong>#}
-{#                {% endif %}#}
-{##}
-{#            </div>#}
-{#            <div class="col-xs-12 col-sm-6 placeholder">#}
-{#               <div class="panel panel-primary">#}
-{#            <div class="panel-heading">#}
-{#                    <h3 class="panel-title">Pages and views</h3>#}
-{#            </div>#}
-{#    </div>#}
-{#                {% if pages %}#}
-{#                    <ul class="list-group">#}
-{#                        {% for page in pages %}#}
-{#                         <li class="list-group-item"><a href="{% url 'goto' %}?page_id={{ page.id }}">{{ page.title }}({{ page.views }})</a></li>#}
-{#                        {% endfor %}#}
-{#                    </ul>#}
-{#                {% else %}#}
-{#                    <strong>There are no categories present.</strong>#}
-{#                {% endif %}#}
-{#            </div>#}
-{##}
-{#          </div>#}
-{#       <p> visits: {{ visits }}</p>#}
-{#{% if user.is_authenticated %}#}
-{#<a href="/rango/logout">注销</a>#}
-{#    <br>#}
-{#<a href="/rango/restricted">登录用户才能看到的页面</a>#}
-{#<h1>Rango says... hello {{ user.username }}!</h1>#}
-{#{% else %}#}
-{#    <a href="/rango/login/"> 登录界面</a>#}
-{#<a href="/rango/register/">注册界面 Here</a>#}
-{##}
-{#<h1>Rango says... hello world!</h1>#}
-{#{% endif %}#}
-{#<strong>{{ boldmessage }}</strong><br/>#}
-{#    <a href="{% url 'search' %}">搜索</a>#}
-{#    <p>这个浏览器访问本站的次数:{{ visits }}</p>#}
-{#    <img src="{% static "images/Jordan.jpg" %}" alt="Picture of jordan" />#}
-    <!--END INFO SECTION-->
-            <div class="col-md-8 ">
-                {% if articles %}
-                {% for artice in articles %}
+    <div class="col-md-8 ">
+        {% if articles %}
+            {% for article in articles %}
                 <div class="blog-post">
-                    <h2>{{ artice.title }}</h2>
-                    <h4>发表时间: {{ artice.pub_date }} </h4>
+                    <h2>{{ article.title }}</h2>
+                    <h4>发表时间: {{ article.pub_date }} </h4>
                     <p>
-                    {{ artice.content | truncatechars:40}}
+                        {{ article.content | truncatechars:40 }}
                     </p>
-                    <a href="{% url 'energy:blog' artice.id %}" class="btn btn-default btn-lg ">更多 <i class="fa fa-angle-right"></i></a>
+                    <a href="{% url 'blog' article.id %}" class="btn btn-default btn-lg ">更多 <i
+                            class="fa fa-angle-right"></i></a>
                 </div>
-                    {% endfor %}
-                    {% else %}
-                      <div class="blog-post">
-                    <h2 class="h2">there is no articles</h2>
+            {% endfor %}
+        {% else %}
+            <div class="blog-post">
+                <h2 class="h2">there is no articles</h2>
 
-                </div>
-                {% endif %}
-
-{#                <div class="blog-post">#}
-{#                    <h2>Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.</h2>#}
-{#                    <h4>Posted by <a href="#">admin</a> on 24th January 2015 </h4>#}
-{#                is_authenticated    <p>#}
-{#                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.#}
-{#Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.#}
-{#Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.#}
-{#                    </p>#}
-{#                    <a href="#" class="btn btn-default btn-lg ">Read More <i class="fa fa-angle-right"></i></a>#}
-{#                </div>#}
-
-                <br />
-                <nav>
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        {% for i in page %}
-
-                        <li><a href="{% url 'energy:index' %}{{ i }}">{{ i }} </a></li>
-                        {% endfor %}
-{#                        <li>#}
-{#                            <a  href=" {% url 'index' %}{{2}} ">2</a>#}
-{#                        </li>#}
-{#                        <li><a id="changepage" pagenum="3">3</a></li>#}
-{#                        <li><a href="#">4</a></li>#}
-{#                        <li><a href="#">5</a></li>#}
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
-{#     <div class="col-md-1"></div>#}
-{#            <div class="col-md-3" style="padding-top: 30px;">#}
-{#				<div class="row">#}
-{#                <ul class="list-group">#}
-{#                    <li class="list-group-item"><strong>CATEGORIES</strong></li>#}
-{#                    <li class="list-group-item">Dapibus ac facilisis in</li>#}
-{#                    <li class="list-group-item">Morbi leo risus</li>#}
-{#                    <li class="list-group-item">Porta ac consectetur ac</li>#}
-{#                    <li class="list-group-item">Vestibulum at eros</li>#}
-{#                    <li class="list-group-item">Dapibus ac facilisis in</li>#}
-{#                    <li class="list-group-item">Morbi leo risus</li>#}
-{#                    <li class="list-group-item">Porta ac consectetur ac</li>#}
-{#                    <li class="list-group-item">Vestibulum at eros</li>#}
-{#                </ul>#}
-{#				</div>#}
-{#				<div class="row">#}
-{#				<h3>Advertising</h3>#}
-{#				</div>#}
-{#            </div>#}
-{#    </div>#}
+        {% endif %}
+        <br/>
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for i in page %}
 
+                    <li><a href="{% url 'index' %}{{ i }}">{{ i }} </a></li>
+                {% endfor %}
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 {% endblock %}
