@@ -22,12 +22,12 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'index' %}">主页</a></li>
-                <li class="active"><a href="{% url 'login' %}">登录</a></li>
+                <li class="active"><a href="{% url 'energy:index' %}">主页</a></li>
+                <li class="active"><a href="{% url 'energy:login' %}">登录</a></li>
 
-                <li><a href="{% url 'submit_msg' %}">提交问题</a></li>
+                <li><a href="{% url 'energy:submit_msg' %}">提交问题</a></li>
                 <li><a href="#contact">联系我们</a></li>
-                <li><a href="{% url 'submit_msg' %}">论坛</a></li>
+                <li><a href="{% url 'energy:submit_msg' %}">论坛</a></li>
                 <li><a href="#about">关于</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单 <b class="caret"></b></a>

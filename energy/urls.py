@@ -3,6 +3,7 @@ from django.conf.urls import url
 from . import views
 
 app_name = "energy"
+
 urlpatterns = [
     url(r"^index", views.index, name="index"),
     url(r"^submit_msg", views.submit_msg, name="submit_msg"),

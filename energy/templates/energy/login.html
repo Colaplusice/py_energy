@@ -10,7 +10,7 @@
                             <p><strong> {{ error }}</strong></p>
                         {% endif %}
 
-                        <form class="form-horizontal" action="{% url 'login' %}" method="post"
+                        <form class="form-horizontal" action="{% url 'energy:login' %}" method="post"
                               enctype="multipart/form-data">
                             <div class="form-group">
                                 {% csrf_token %}
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
 
-                            <img class="" src="{% url 'verify' %}" onclick="refresh(this)">
+                            <img class="" src="{% url 'energy:verify' %}" onclick="refresh(this)">
                             &nbsp; &nbsp;
                             <button type="submit" class="btn btn-success">submit</button>
                             <script>
@@ -58,7 +58,7 @@
                         {% endif %}
                     <div class="panel-footer">
                         没有账户?点击注册
-                        <a href="{% url 'register' %}">register here</a>
+                        <a href="{% url 'energy:register' %}">register here</a>
 
                     </div>
                 </div>

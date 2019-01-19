@@ -27,21 +27,21 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'index' %}">主页</a></li>
+                <li class="active"><a href="{% url 'energy:index' %}">主页</a></li>
                 {#                        注册用户#}
 
-                <li class="active"><a href="{% url 'submit_msg' %}">提交问题</a></li>
+                <li class="active"><a href="{% url 'energy:submit_msg' %}">提交问题</a></li>
 
                 {% if user.is_authenticated %}
-                    <li class="active"><a href="{% url 'log_out' %}">注销</a></li>
+                    <li class="active"><a href="{% url 'energy:log_out' %}">注销</a></li>
                 {% else %}
-                    <li class="active"><a href="{% url 'login' %}">登录</a></li>
-                    <li class="active"><a href="{% url 'register' %}">注册</a></li>
+                    <li class="active"><a href="{% url 'energy:login' %}">登录</a></li>
+                    <li class="active"><a href="{% url 'energy:register' %}">注册</a></li>
 
 
                 {% endif %}
-                <li class="active"><a href="{% url "article" %}?page_id=1">文章专栏</a></li>
-                <li class="active"><a href="{% url "forum" %}">论坛</a></li>
+                <li class="active"><a href="{% url "energy:article" %}?page_id=1">文章专栏</a></li>
+                <li class="active"><a href="{% url "energy:forum" %}">论坛</a></li>
                 <li class="active"><a href="#about">关于</a></li>
                 <form class="navbar-form pull-right">
                     <input class="input-sm" type="text" placeholder="请输入搜索内容">
@@ -60,7 +60,7 @@
                     <div class="carousel-caption">
                         <h1 class="h1">节能校园.</h1>
                         {#              <p class="lead">减排</p>#}
-                        <a class="btn btn-large btn-primary" href="{% url 'article' %}">文章专栏</a>
+                        <a class="btn btn-large btn-primary" href="{% url 'energy:article' %}">文章专栏</a>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                     <div class="carousel-caption">
                         <h1 class="h1">减排新风貌</h1>
                         {#              <p class="lead">论坛</p>#}
-                        <a class="btn btn-large btn-primary" href="{% url 'forum' %}"> 前往论坛</a>
+                        <a class="btn btn-large btn-primary" href="{% url 'energy:forum' %}"> 前往论坛</a>
                     </div>
                 </div>
             </div>

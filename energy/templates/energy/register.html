@@ -60,7 +60,7 @@
 
         $(document).ready(function () {
             $("#rend").click(function () {
-                $.post("{% url 'register' %}",
+                $.post("{% url 'energy:register' %}",
                     {
                         username: $("#id_username").val(),
                         password1: $("#id_password").val(),
@@ -70,7 +70,7 @@
                         if (ret == 1) {
                             alert('登录成功');
                             document.getElementById('test').value = '成功'
-                            window.location.href = "{% url 'index' %}"
+                            window.location.href = "{% url 'energy:index' %}"
                         }
                         else {
                             alert('账号密码错误')

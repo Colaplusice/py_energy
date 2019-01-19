@@ -83,8 +83,8 @@
                         <div class="aw-mod aw-article-replay-box">
                             <a name="answer_form"></a>
                             {% if not user.is_authenticated %}
-                                <p align="center">要回复文章请先<a href="{% url 'login' %}">登录</a>或<a
-                                        href="{% url 'register' %}">注册</a></p>
+                                <p align="center">要回复文章请先<a href="{% url 'energy:login' %}">登录</a>或<a
+                                        href="{% url 'energy:register' %}">注册</a></p>
                             {% else %}
                                 <p align="center">您已经登录，回复功能内测中</p>
                             {% endif %}

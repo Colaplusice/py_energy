@@ -9,7 +9,7 @@
                     <p>
                         {{ article.content | truncatechars:40 }}
                     </p>
-                    <a href="{% url 'blog' article.id %}" class="btn btn-default btn-lg ">更多 <i
+                    <a href="{% url 'energy:blog' article.id %}" class="btn btn-default btn-lg ">更多 <i
                             class="fa fa-angle-right"></i></a>
                 </div>
             {% endfor %}
@@ -29,7 +29,7 @@
                 </li>
                 {% for i in page %}
 
-                    <li><a href="{% url 'index' %}{{ i }}">{{ i }} </a></li>
+                    <li><a href="{% url 'energy:index' %}{{ i }}">{{ i }} </a></li>
                 {% endfor %}
                 <li>
                     <a href="#" aria-label="Next">

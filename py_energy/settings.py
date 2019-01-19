@@ -28,8 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
-
 # email
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -64,11 +62,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "energy.urls"
+ROOT_URLCONF = "py_energy.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
+        # "DIRS": [os.path.join(BASE_DIR, "templates")],
         "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {

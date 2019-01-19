@@ -7,7 +7,7 @@
                 <h1 align="center"> {{ error }}</h1>
             {% endif %}
             <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data"
-                  action="{% url 'energy:submit_msg' %}">
+                  action="{% url 'energy:energy:submit_msg' %}">
                 {% csrf_token %}
                 {% include 'energy/form_template_2.html' %}
                 <div class="form-group">
